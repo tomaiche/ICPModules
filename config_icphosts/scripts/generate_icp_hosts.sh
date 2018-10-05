@@ -30,7 +30,8 @@ echo "$NUM_MASTER"
 echo "$NUM_MANAGEMENT"
 # Create Endpoint Based on Gluster Cluster IPs
 
-KUB_CMDS="kubelet_extra_args='[\"--eviction-hard=memory.available<100Mi,nodefs.available<2Gi,nodefs.inodesFree<5\"]',\"--image-gc-high-threshold=100\",\"--image-gc-low-threshold=100\""
+# KUB_CMDS="kubelet_extra_args='[\"--eviction-hard=memory.available<100Mi,nodefs.available<2Gi,nodefs.inodesFree<5\"]',\"--image-gc-high-threshold=100\",\"--image-gc-low-threshold=100\""
+KUB_CMDS=""
 
 icp_hosts_txt=$(
   if [ ${NUM_MANAGEMENT} -gt 0 ]
