@@ -49,8 +49,15 @@ function check_command_and_install() {
         sudo apt-get install -y $2
         printf "\033[32m%s %s [INSTALLED]\n\033[0m\n" "$string" "${line:${#string}}"
       else
-        sudo yum install -y $3
-        printf "\033[32m%s %s [INSTALLED]\n\033[0m\n" "$string" "${line:${#string}}"
+        if [ $command == "sshpass" ]; then
+	    yum -y install wget
+	    wget  http://download.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
+	    rpm -ivh epel-release-6-8.noarch.rpm
+	    yum --enablerepo=epel -y install $3
+	  else	
+          sudo yum install -y $3
+          printf "\033[32m%s %s [INSTALLED]\n\033[0m\n" "$string" "${line:${#string}}"
+        fi
       fi
     else # If a function name is provided
       eval $2
@@ -78,6 +85,7 @@ if [[ $PLATFORM == *"redhat"* ]]; then
   PLATFORM="rhel"
 fi
 
+check_command_and_install ssshpass sshpass sshpass
 check_command_and_install glusterfs-client glusterfs-client glusterfs-client
 if [ `lsmod | grep dm_thin_pool | wc -l` -gt 0 ];then
   printf "\033[32m%s [MODULE_CONFIGURED]\n\033[0m\n" "dm_thin_pool"
