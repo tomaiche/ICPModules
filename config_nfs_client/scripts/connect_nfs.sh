@@ -68,7 +68,7 @@ fi
 
 
 # Install requirements
-check_command_and_install nfs-common nfs-common nfs-common
+check_command_and_install nfs-utils nfs-utils nfs-utils
 # sudo apt-get update -y
 # sudo apt-get install -y nfs-common
 
