@@ -57,7 +57,7 @@ DRIVE=$1
 MOUNT_POINT="/var/nfs"
 # format and mount a drive to /mnt
 echo "Formatting drive $DRIVE"
-mkfs -t ext3 $DRIVE
+mkfs -f -t ext3 $DRIVE
 echo "Creating folder for mount point: $MOUNT_POINT"
 mkdir -p $MOUNT_POINT
 echo "Adding $DRIVE to /etc/fstab"
