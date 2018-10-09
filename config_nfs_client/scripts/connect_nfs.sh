@@ -105,15 +105,18 @@ else
   echo "There was an error mounting the NFS server"
   exit 1
 fi
-echo "Creating ICP folders"
+
+
+# echo "Creating ICP folders"
 
 # Create mount point
-echo "Creating mount point: $MOUNT_POINT"
-sudo mkdir -p $MOUNT_POINT
-if [ $? != 0 ]; then
-  echo "[ERROR] There was an error creating the mount point folder: '$MOUNT_POINT'"
-  exit 1
-fi
+# Done already !
+# echo "Creating mount point: $MOUNT_POINT"
+# sudo mkdir -p $MOUNT_POINT
+# if [ $? != 0 ]; then
+#   echo "[ERROR] There was an error creating the mount point folder: '$MOUNT_POINT'"
+#   exit 1
+# fi
 
 echo "Creating ICP folders"
 export NUM_FOLDERS=${#myfolderarray[@]}
@@ -131,7 +134,7 @@ for ((i=0; i < ${NUM_FOLDERS}; i++)); do
     mkdir -p ${myfolderarray[i]}
   fi
 
-  mount --bind ${myfolderarray[i]} $MOUNT_POINT/$last_folder
-  echo "${myfolderarray[i]} $MOUNT_POINT/$last_folder  none bind 0 0" >> /etc/fstab
+  mount --bind  $MOUNT_POINT/$last_folder ${myfolderarray[i]}
+  echo "$MOUNT_POINT/$last_folder ${myfolderarray[i]}  none bind 0 0" >> /etc/fstab
 
 done
