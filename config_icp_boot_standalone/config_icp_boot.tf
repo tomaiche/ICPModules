@@ -99,7 +99,6 @@ resource "null_resource" "setup_installer_tar" {
     # "echo \"      ${var.gluster_volumetype}\" >> /root/ibm-cloud-private-x86_64-${var.icp_version}/cluster/config.yaml",
     # "cat /root/glusterfs.txt >> /root/ibm-cloud-private-x86_64-${var.icp_version}/cluster/config.yaml",
   }
-}
 
   provisioner "file" {
     source      = "/tmp/${var.random}/icp_hosts"
