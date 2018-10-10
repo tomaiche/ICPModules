@@ -82,11 +82,6 @@ resource "null_resource" "setup_installer_tar" {
     bastion_password    = "${var.bastion_password}"        
   }
 
-  provisioner "file" {
-    source      = "/tmp/${var.random}/icp_hosts"
-    destination = "/root/ibm-cloud-private-x86_64-${var.icp_version}/cluster/hosts"
-  }
-
   provisioner "remote-exec" {
     inline = [
       "cd /root/ibm-cloud-private-x86_64-${var.icp_version}",
@@ -99,6 +94,20 @@ resource "null_resource" "setup_installer_tar" {
       "sed -i 's/default_admin_user.*/default_admin_user: ${var.icp_admin_user}/g' /root/ibm-cloud-private-x86_64-${var.icp_version}/cluster/config.yaml",
       "sed -i 's/default_admin_password.*/default_admin_password: ${var.icp_admin_password}/g' /root/ibm-cloud-private-x86_64-${var.icp_version}/cluster/config.yaml",
       "cp /root/.ssh/id_rsa /root/ibm-cloud-private-x86_64-${var.icp_version}/cluster/ssh_key",
+   ]
+
+    # "echo \"      ${var.gluster_volumetype}\" >> /root/ibm-cloud-private-x86_64-${var.icp_version}/cluster/config.yaml",
+    # "cat /root/glusterfs.txt >> /root/ibm-cloud-private-x86_64-${var.icp_version}/cluster/config.yaml",
+  }
+}
+
+  provisioner "file" {
+    source      = "/tmp/${var.random}/icp_hosts"
+    destination = "/root/ibm-cloud-private-x86_64-${var.icp_version}/cluster/hosts"
+  }
+
+  provisioner "remote-exec" {
+    inline = [
       "cd  /root/ibm-cloud-private-x86_64-${var.icp_version}/cluster",
       "sudo docker run --net=host -t -e LICENSE=accept  -v $(pwd):/installer/cluster ibmcom/icp-inception:${var.icp_version}-ee install | sudo tee -a /root/cfc-install.log",
     ]
@@ -112,6 +121,6 @@ resource "null_resource" "icp_install_finished" {
   depends_on = ["null_resource.setup_installer", "null_resource.setup_installer_tar", "null_resource.config_icp_boot_dependsOn"]
 
   provisioner "local-exec" {
-    command = "echo 'ICP Standalone Tier has been installed.'"
+    command = "echo 'ICP Standalone Tier has been installed.' "
   }
 }
