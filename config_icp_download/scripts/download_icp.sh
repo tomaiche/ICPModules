@@ -141,9 +141,9 @@ if [ -n $PARAM_ICP ]; then
           docker tag ibmcom/icp-inception-amd64:3.1.0-ee ibmcom/icp-inception:3.1.0-ee
       fi
 
-      cd /root/ibm-cloud-private-x86_64-${PARAM_ICP_VERSION}
-      docker run -v $(pwd):/data -e LICENSE=accept ibmcom/icp-inception:${PARAM_ICP_VERSION}-ee cp -r cluster /data
-      mkdir -p cluster/images; mv ${ICP_INSTALLER_FILE_NAME} cluster/images/
+      # cd /root/ibm-cloud-private-x86_64-${PARAM_ICP_VERSION}
+      # docker run -v $(pwd):/data -e LICENSE=accept ibmcom/icp-inception:${PARAM_ICP_VERSION}-ee cp -r cluster /data
+      # mkdir -p cluster/images; mv ${ICP_INSTALLER_FILE_NAME} cluster/images/
     fi 
 
   else
