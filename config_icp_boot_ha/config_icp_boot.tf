@@ -104,7 +104,6 @@ resource "null_resource" "setup_installer_tar" {
       "sed -i 's/# proxy_vip.*/proxy_vip: ${var.proxy_vip}/g' /root/ibm-cloud-private-x86_64-${var.icp_version}/cluster/config.yaml",
     ]
   }
-}
 
   provisioner "file" {
     source      = "/tmp/${var.random}/icp_hosts"
