@@ -89,6 +89,9 @@ resource "null_resource" "setup_installer_tar" {
 
   provisioner "remote-exec" {
     inline = [
+      cd /root/ibm-cloud-private-x86_64-${var.icp_version}
+      docker run -v $(pwd):/data -e LICENSE=accept ibmcom/icp-inception:${var.icp_version}-ee cp -r cluster /data
+      mkdir -p cluster/images; mv ibm-cloud-private-x86_64-${var.icp_version}.tar.gz cluster/images/
       "echo \"version: ${var.icp_version}\" >> /root/ibm-cloud-private-x86_64-${var.icp_version}/cluster/config.yaml",
       "echo \"kibana_install: ${var.enable_kibana}\" >> /root/ibm-cloud-private-x86_64-${var.icp_version}/cluster/config.yaml",
       "echo \"metering_enabled: ${var.enable_metering}\" >> /root/ibm-cloud-private-x86_64-${var.icp_version}/cluster/config.yaml",
