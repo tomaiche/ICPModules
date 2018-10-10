@@ -85,11 +85,6 @@ resource "null_resource" "setup_installer_tar" {
     bastion_password    = "${var.bastion_password}"         
   }
 
-  provisioner "file" {
-    source      = "/tmp/${var.random}/icp_hosts"
-    destination = "/root/ibm-cloud-private-x86_64-${var.icp_version}/cluster/hosts"
-  }
-
   provisioner "remote-exec" {
     inline = [
       "cd /root/ibm-cloud-private-x86_64-${var.icp_version}",
@@ -107,6 +102,17 @@ resource "null_resource" "setup_installer_tar" {
       "sed -i 's/# vip_iface.*/vip_iface: ${var.cluster_vip_iface}/g' /root/ibm-cloud-private-x86_64-${var.icp_version}/cluster/config.yaml",
       "sed -i 's/# proxy_vip_iface.*/proxy_vip_iface: ${var.proxy_vip_iface}/g' /root/ibm-cloud-private-x86_64-${var.icp_version}/cluster/config.yaml",
       "sed -i 's/# proxy_vip.*/proxy_vip: ${var.proxy_vip}/g' /root/ibm-cloud-private-x86_64-${var.icp_version}/cluster/config.yaml",
+    ]
+  }
+}
+
+  provisioner "file" {
+    source      = "/tmp/${var.random}/icp_hosts"
+    destination = "/root/ibm-cloud-private-x86_64-${var.icp_version}/cluster/hosts"
+  }
+
+  provisioner "remote-exec" {
+    inline = [
       "cd  /root/ibm-cloud-private-x86_64-${var.icp_version}/cluster",
       "sudo docker run --net=host -t -e LICENSE=accept  -v $(pwd):/installer/cluster ibmcom/icp-inception:${var.icp_version}-ee install | sudo tee -a /root/cfc-install.log",
     ]
