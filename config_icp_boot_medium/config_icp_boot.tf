@@ -102,7 +102,6 @@ resource "null_resource" "setup_installer_tar" {
       "cp /root/.ssh/id_rsa /root/ibm-cloud-private-x86_64-${var.icp_version}/cluster/ssh_key",
     ]
   }
-}
 
   provisioner "file" {
     source      = "/tmp/${var.random}/icp_hosts"
