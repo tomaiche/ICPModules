@@ -9,7 +9,6 @@ variable "enable_kibana"        { type="string" description = "Enable IBM Cloud 
 variable "enable_bluemix_install"        { type="string" default = "false" description = "Enable install from bluemix repository"}
 variable "bluemix_token"   		{ type="string" description = "Bluemix token"}
 variable "enable_metering"      { type="string" description = "Enable IBM Cloud Private Metering"}
-variable "enable_vm_va"      { type="string" description = "Enable IBM Cloud Private Vulnerability Advisor"}
 variable "cluster_vip"          { type="string" description = "IBM Cloud Private Cluster Name"}
 variable "cluster_vip_iface"    { type="string" description = "IBM Cloud Private Cluster Network Interface"}
 variable "proxy_vip"            { type="string" description = "IBM Cloud Private Proxy VIP"}
