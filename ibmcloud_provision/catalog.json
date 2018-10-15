@@ -1,5 +1,6 @@
-me": "Node.js on a Single VM",
-   "description": "Node.js - An execution environment for event-driven server-side applications.",
+{
+   "name": "ICP on a Single VM",
+   "description": "IBM Cloud Private",
    "version": "1.0",
    "imageUrl": "./assets/svg/IBM_WebSphere_Standalone.svg",
    "image": "tp_WAS_standalone.png",
@@ -17,14 +18,14 @@ me": "Node.js on a Single VM",
      "template_source": {
        "githubRepoUrl": "",
        "githubAccessToken": "",
-       "relativePathToTemplateFolder": "BlueMix/terraform/hcl/nodejs",
-       "templateFileName": "nodejs.tf"
+       "relativePathToTemplateFolder": "ibmcloud_provision",
+       "templateFileName": "vm_singledisk.tf"
      }
    },
    "metadata": {
-     "displayName": "Node.js on a Single VM",
+     "displayName": "ICP on a Single VM",
      "providerDisplayName": "IBM",
-     "longDescription": "Deploys a single node of Node.js in IBM Cloud for development use, where Node.js is an execution environment for event-driven server-side and networking applications.",
+     "longDescription": "Deploys IBM Cloud Private on a single node (AllInOne model)",
      "bullets": [
        {
          "title": "Clouds",
@@ -32,19 +33,19 @@ me": "Node.js on a Single VM",
        },
        {
          "title": "Operating systems supported",
-         "description": "IBM Cloud: CentOS 7"
+         "description": "IBM Cloud: RHEL 7"
        },
        {
          "title": "Topology",
-         "description": "IBM Cloud: 1 virtual machine: Node.js"
+         "description": "IBM Cloud: 1 virtual machine: ICP"
        },
        {
          "title": "Software deployed",
-         "description": "<table style=\"width:100%\"><tr><td width=\"20%\" valign=\"top\">1. Node.js:</td><td>an execution environment for event-driven server-side and networking applications</td></tr></table>"
+         "description": "<table style=\"width:100%\"><tr><td width=\"20%\" valign=\"top\">1. ICP:</td><td>a Kubernetes Cluster environment to deploy containerized workloads</td></tr></table>"
        },
        {
          "title": "Default virtual machine settings",
-         "description": "<ul><li>IBM Cloud:<ul style=\"margin-left: 20px;\"><li>Flavor: Cores = 1, Memory = 1GB, Storage = 25GB SAN</li><li>Network: Private IP - Computed, Public IP - Computed</li><li>Firewall: Not enabled</li></ul></li></ul>"
+         "description": "<ul><li>IBM Cloud:<ul style=\"margin-left: 20px;\"><li>Flavor: Cores = 16, Memory = 64GB, Storage = 25GB + 400GB SAN</li><li>Network: Private IP - Computed, Public IP - Computed</li><li>Firewall: Not enabled</li></ul></li></ul>"
        },
        {
          "title": "Usage and special notes",
