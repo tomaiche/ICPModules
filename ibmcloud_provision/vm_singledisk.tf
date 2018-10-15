@@ -27,17 +27,6 @@ resource "ibm_compute_ssh_key" "temp_public_key" {
   public_key = "${tls_private_key.ssh.public_key_openssh}"
 }
 
-#########################################################
-# Define the variables
-#########################################################
-variable "vm_domain" {
-  description = "Domain name to use for VM"
-}
-
-variable "vm_disk1_size" {
-  description = "Domain name to use for VM"
-}
-
 
 ##############################################################
 # Create Virtual Machine 
@@ -190,7 +179,7 @@ EOF
   provisioner "remote-exec" {
     inline = [
       "bash -c 'chmod +x VM_add_ssh_key.sh'",
-      "bash -c './VM_add_ssh_key.sh  \"root\" \"${var.vm_public_ssh_key}\" \"${var.vm_private_ssh_key}\">> VM_add_ssh_key.log 2>&1'",
+      "bash -c './VM_add_ssh_key.sh  \"root\" \"${tls_private_key.ssh.public_key_pem}\" \"${tls_private_key.ssh.private_key_pem}\">> VM_add_ssh_key.log 2>&1'",
     ]
   }
 
