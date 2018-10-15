@@ -52,7 +52,8 @@ resource "ibm_compute_vm_instance" "softlayer_virtual_guest" {
   hourly_billing           = true
   private_network_only     = false
   flavor_key_name          = "B1.16x64"
-  disks                    = [25,${var.vm_disk1_size}]
+  # disks                    = [25,${var.vm_disk1_size}]
+  disks                    = [25,400]
   dedicated_acct_host_only = false
   local_disk               = false
   ssh_key_ids              = ["${ibm_compute_ssh_key.temp_public_key.id}"]
@@ -138,6 +139,49 @@ else
 echo "updated $user_auth_key_file_private"
 fi
 rm -rf $user_auth_key_file_private_temp
+
+# manage additional disk
+
+# add partition on new disk
+
+parted /dev/xvdc mklabel gpt mkpart P1 ext3 0% 100%
+
+# create fs
+
+mkfs -t ext4 /dev/xvdc1
+
+# create directorie and mount points
+
+mkdir -p /extra/docker
+mkdir -p /extra/kubelet
+mkdir -p /extra/etcd
+mkdir -p /extra/icp
+mkdir -p /extra/registry
+
+mkdir -p /var/lib/docker
+mkdir -p /var/lib/kubelet
+mkdir -p /var/lib/etcd
+mkdir -p /var/lib/icp
+mkdir -p /var/lib/registry
+
+
+# mount bind target directories on extra disk and persist to fstab
+
+mount --rbind /extra/docker /var/lib/docker
+echo "/extra/docker /var/lib/docker none defaults,bind 0 0" >> /etc/fstab
+
+mount --rbind /extra/kubelet /var/lib/kubelet
+echo "/extra/kubelet /var/lib/kubelet none defaults,bind 0 0" >> /etc/fstab
+
+mount --rbind /extra/etcd /var/lib/etcd
+echo "/extra/etcd /var/lib/etcd none defaults,bind 0 0" >> /etc/fstab
+
+mount --rbind /extra/icp /var/lib/icp
+echo "/extra/icp /var/lib/icp none defaults,bind 0 0" >> /etc/fstab
+
+mount --rbind /extra/registry /var/lib/registry
+echo "/extra/registry /var/lib/registry none defaults,bind 0 0" >> /etc/fstab
+
 
 EOF
   }
