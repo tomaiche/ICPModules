@@ -191,7 +191,7 @@ EOF
 
 resource "null_resource" "vm-create_done" {
 #   depends_on = ["vsphere_virtual_machine.vm", "vsphere_virtual_machine.vm2disk"]
-  depends_on = ["vsphere_virtual_machine.vm"]
+  depends_on = ["ibm_compute_vm_instance.softlayer_virtual_guest"]
 
   provisioner "local-exec" {
     command = "echo 'VM creates done for ${var.hostname}X.'"
