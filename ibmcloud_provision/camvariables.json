@@ -103,7 +103,8 @@
           },
           {
               "value": "par01",
-              "label": "Paris, France"
+              "label": "Paris, France",
+              "default": "true"
           },
           {
               "value": "mex01",
@@ -151,8 +152,7 @@
           },
           {
               "value": "wdc04",
-              "label": "Washington, D.C. 04, USA",
-              "default": "true"
+              "label": "Washington, D.C. 04, USA"
           }
         ],
         "group": "virtualmachine"
