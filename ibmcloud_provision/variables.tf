@@ -1,3 +1,13 @@
+#########################################################
+# Define the variables
+#########################################################
+variable "datacenter" {
+  description = "Softlayer datacenter where infrastructure resources will be deployed"
+}
+
+variable "hostname" {
+  description = "Hostname of the virtual instance to be deployed"
+}
 
 
 variable "enable_vm" {
@@ -6,9 +16,10 @@ variable "enable_vm" {
 }
 
 #Variable : vm_name
-variable "hostname" {
-  type = "list"
-}
+# variable "vm_name" {
+#  type = "list"
+# }
+
 variable "count" {
   type = "string"
   default = "1"
