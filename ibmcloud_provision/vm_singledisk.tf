@@ -30,8 +30,8 @@ resource "ibm_compute_vm_instance" "softlayer_virtual_guest" {
   network_speed            = 1000
   hourly_billing           = true
   private_network_only     = false
-  cores                   = ${var.vm_cpu}
-  memory                   = ${var.vm_ram}
+  cores                   = "${var.vm_cpu}"
+  memory                   = "${var.vm_ram}"
   # flavor_key_name          = "B1.16x64"
   # disks                    = [25,${var.vm_disk1_size}]
   disks                    = [25,400]
