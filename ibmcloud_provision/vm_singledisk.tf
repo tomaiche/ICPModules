@@ -4,16 +4,6 @@
 provider "ibm" {
 }
 
-#########################################################
-# Define the variables
-#########################################################
-variable "datacenter" {
-  description = "Softlayer datacenter where infrastructure resources will be deployed"
-}
-
-variable "hostname" {
-  description = "Hostname of the virtual instance to be deployed"
-}
 
 ##############################################################
 # Create temp public key for ssh connection
