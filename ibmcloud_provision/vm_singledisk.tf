@@ -1,22 +1,11 @@
-#########################################################
-# Define the ibmcloud provider
-#########################################################
-provider "ibm" {
-}
-
-
 ##############################################################
-# Create temp public key for ssh connection
+# Add ssh key to IBM Cloud, so it can be used against the VM
 ##############################################################
-resource "tls_private_key" "ssh" {
-  algorithm = "RSA"
-}
 
-resource "ibm_compute_ssh_key" "temp_public_key" {
-  label      = "Temp Public Key"
-  public_key = "${tls_private_key.ssh.public_key_openssh}"
+resource "ibm_compute_ssh_key" "icp_public_key" {
+  label      = "ICP Key"
+  public_key = "${var.vm_public_ssh_key}"
 }
-
 
 ##############################################################
 # Create Virtual Machine 
@@ -37,14 +26,14 @@ resource "ibm_compute_vm_instance" "softlayer_virtual_guest" {
   disks                    = [25,400]
   dedicated_acct_host_only = false
   local_disk               = false
-  ssh_key_ids              = ["${ibm_compute_ssh_key.temp_public_key.id}"]
+  ssh_key_ids              = ["${ibm_compute_ssh_key.icp_public_key.id}"]
 
 
   # Specify the connection
   connection {
     type     = "ssh"
     user        = "root"
-    private_key = "${tls_private_key.ssh.private_key_pem}"
+    private_key = "${var.vm_private_ssh_key}"
     host     = "${self.ipv4_address}"
     bastion_host        = "${var.bastion_host}"
     bastion_user        = "${var.bastion_user}"
@@ -185,7 +174,7 @@ EOF
   provisioner "remote-exec" {
     inline = [
       "bash -c 'chmod +x VM_add_ssh_key.sh'",
-      "bash -c './VM_add_ssh_key.sh  \"root\" \"${tls_private_key.ssh.public_key_pem}\" \"${tls_private_key.ssh.private_key_pem}\">> VM_add_ssh_key.log 2>&1'",
+      "bash -c './VM_add_ssh_key.sh  \"root\" \"${var.vm_private_ssh_key}\" \"${va.vm_public_ssh_key}\">> VM_add_ssh_key.log 2>&1'",
     ]
   }
 
@@ -193,6 +182,7 @@ EOF
     command = "echo \"${self.ipv4_address}       ${var.hostname}.${var.vm_domain} ${var.hostname}\" >> /tmp/${var.random}/hosts"
   }
 }
+
 
 
 resource "null_resource" "vm-create_done" {
