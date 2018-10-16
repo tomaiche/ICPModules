@@ -122,14 +122,23 @@ fi
 rm -rf $user_auth_key_file_private_temp
 
 # manage additional disk
-
+echo "adding partition to additionnal disk "
 # add partition on new disk
 
-parted /dev/xvdc mklabel gpt mkpart P1 ext3 0% 100%
+parted -s /dev/xvdc mklabel gpt mkpart extra ext4 0% 100%
+
+echo "partition added to additionnal disk "
 
 # create fs
 
+echo "creating filesystem"
+
 mkfs -t ext4 /dev/xvdc1
+mkdir -p /extra
+mount /dev/xvdc1 /extra
+echo "/dev/xvdc1 /extra  ext4 defaults   0 0" >> /etc/fstab
+
+echo "filesystem created and mounted, creating mount points and directories"
 
 # create directorie and mount points
 
@@ -182,7 +191,7 @@ EOF
 
 
 resource "null_resource" "vm-create_done" {
-#   depends_on = ["vsphere_virtual_machine.vm", "vsphere_virtual_machine.vm2disk"]
+#   depends_on = ["vsphere_virtual_m:achine.vm", "vsphere_virtual_machine.vm2disk"]
   depends_on = ["ibm_compute_vm_instance.softlayer_virtual_guest"]
 
   provisioner "local-exec" {
