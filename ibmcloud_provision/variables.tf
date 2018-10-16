@@ -38,13 +38,11 @@ variable "vm_domain" {
 
 variable "vm_cpu" {
   description = "vcpus of virtual machine"
-  type = integer
   default = 16
   }
 
 variable "vm_ram" {
   description = "memory of virtual machine in MB"
-  type = integer
   default = 65536
   }
 
