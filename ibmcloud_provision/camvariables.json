@@ -170,6 +170,30 @@
         "group": "virtualmachine"
     },
     {
+        "description": "Number of cores of Virtual Machine",
+        "hidden": false,
+        "immutable": false,
+        "label": "Cores",
+        "name": "vm_cpu",
+        "required": true,
+        "secured": false,
+        "type": "string",
+        "default": "1",
+        "group": "virtualmachine"
+    },
+     {
+        "description": "Memory size in MB of Virtual Machine",
+        "hidden": false,
+        "immutable": false,
+        "label": "Memory",
+        "name": "vm_ram",
+        "required": true,
+        "secured": false,
+        "type": "string",
+        "default": "4096",
+        "group": "virtualmachine"
+    },
+   {
       "name": "bastion_host",
       "type": "string",
       "group_name": "bastion",
