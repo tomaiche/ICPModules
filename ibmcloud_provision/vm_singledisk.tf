@@ -154,6 +154,8 @@ mkdir -p /var/lib/etcd
 mkdir -p /var/lib/icp
 mkdir -p /var/lib/registry
 
+echo "mount points and directories created, doing mounts"
+
 
 # mount bind target directories on extra disk and persist to fstab
 
@@ -172,6 +174,9 @@ echo "/extra/icp /var/lib/icp none defaults,bind 0 0" >> /etc/fstab
 mount --rbind /extra/registry /var/lib/registry
 echo "/extra/registry /var/lib/registry none defaults,bind 0 0" >> /etc/fstab
 
+echo "everything mounted and persisted to /etc/fstab"
+
+exit 0
 
 EOF
   }
