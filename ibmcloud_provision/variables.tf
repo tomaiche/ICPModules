@@ -36,12 +36,21 @@ variable "vm_domain" {
   default = "icpcam.ibmcloud"
 }
 
+variable "vm_cpu" {
+  description = "vcpus of virtual machine"
+  type = integer
+  default = 16
+  }
 
-
+variable "vm_ram" {
+  description = "memory of virtual machine in MB"
+  type = integer
+  default = 65536
+  }
 
 
 variable "vm_disk1_size" {
-  description = "Size of template disk volume"
+  description = "Size of template disk volume in GB"
   default = 400
 }
 
@@ -53,7 +62,7 @@ variable "vm_disk2_enable" {
 } 
 
 variable "vm_disk2_size" {
-  description = "Size of template disk volume"
+  description = "Size of template disk volume in GB"
   default = 200
 }
 
