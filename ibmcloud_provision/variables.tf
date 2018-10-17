@@ -29,6 +29,19 @@ variable "count" {
 ##### Resource : vm_
 #########################################################
 
+variable "vm_private_ssh_key" {
+  description = "private_ssh_key of virtual machine"
+}
+
+variable "vm_public_ssh_key" {
+  description = "public_ssh_key of virtual machine"
+}
+
+variable "vm_os_user" {
+  description = "os user of virtual machine"
+  default = "root"
+}
+
 
 
 variable "vm_domain" {
