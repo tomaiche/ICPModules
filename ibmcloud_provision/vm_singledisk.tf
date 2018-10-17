@@ -32,7 +32,7 @@ resource "ibm_compute_vm_instance" "softlayer_virtual_guest" {
   # Specify the connection
   connection {
     type     = "ssh"
-    user        = "root"
+    user        = "${var.vm_os_user}"
     private_key = "${var.vm_private_ssh_key}"
     host     = "${self.ipv4_address}"
     bastion_host        = "${var.bastion_host}"
