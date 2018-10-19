@@ -12,6 +12,7 @@ resource "ibm_compute_ssh_key" "icp_public_key" {
 ##############################################################
 resource "ibm_compute_vm_instance" "softlayer_virtual_guest" {
   # count = "${var.vm_disk2_enable == "false" && var.enable_vm == "true" ? 1 : 0}"
+  count = "S{var.count}"
   hostname                 = "${var.hostname}"
   os_reference_code        = "REDHAT_7_64"
   domain                   = "${var.vm_domain}"
@@ -34,7 +35,7 @@ resource "ibm_compute_vm_instance" "softlayer_virtual_guest" {
     type     = "ssh"
     user        = "${var.vm_os_user}"
     private_key = "${var.vm_private_ssh_key}"
-    host     = "${self.ipv4_address}"
+    host     = "${var.private_ip_only == "true" ? self.ipv4_address_private : self.ipv4_address}"
     bastion_host        = "${var.bastion_host}"
     bastion_user        = "${var.bastion_user}"
     bastion_private_key = "${ length(var.bastion_private_key) > 0 ? base64decode(var.bastion_private_key) : var.bastion_private_key}"
