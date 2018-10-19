@@ -23,9 +23,9 @@ variable "enable_vm" {
 #  type = "list"
 # }
 
-variable "hostcount" {
-  description = "number of instances to provision"
-}
+# variable "hostcount" {
+#   description = "number of instances to provision"
+# }
 
 #########################################################
 ##### Resource : vm_
