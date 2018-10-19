@@ -25,7 +25,6 @@ variable "enable_vm" {
 
 variable "count" {
   type = "string"
-  default = "1"
 }
 
 #########################################################
