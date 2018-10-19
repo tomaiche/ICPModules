@@ -23,7 +23,7 @@ variable "enable_vm" {
 #  type = "list"
 # }
 
-variable "count" {
+variable "hostcount" {
   description = "number of instances to provision"
 }
 
