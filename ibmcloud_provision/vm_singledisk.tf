@@ -12,7 +12,8 @@ resource "ibm_compute_ssh_key" "icp_public_key" {
 ##############################################################
 resource "ibm_compute_vm_instance" "softlayer_virtual_guest" {
   # count = "${var.vm_disk2_enable == "false" && var.enable_vm == "true" ? 1 : 0}"
-  count = "S{var.count}"
+  count = "S{var.hostcount}"
+  
   hostname                 = "${var.hostname}"
   os_reference_code        = "REDHAT_7_64"
   domain                   = "${var.vm_domain}"
